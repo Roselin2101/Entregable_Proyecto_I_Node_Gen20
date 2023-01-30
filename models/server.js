@@ -1,5 +1,6 @@
 const express = require('express');
 const { repairsRouter } = require('../routes/repairs.routes');
+const cors = require('cors');
 
 //1. Creo una clase
 
@@ -14,9 +15,11 @@ class Server {
     };
 
     this.middlewares();
+
     this.routes();
   }
   middlewares() {
+    this.app.use(cors());
     this.app.use(express.json());
   }
   // Rutas

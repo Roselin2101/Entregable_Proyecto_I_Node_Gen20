@@ -8,7 +8,7 @@ const {
 
 const router = Router();
 
-router.get('/', findRepairs);
+router.get('/:id', findRepairs);
 
 router.post('/', createRepairs);
 
@@ -19,9 +19,9 @@ router.put('/', (req, res) => {
   });
 });
 
-router.patch('/', updateRepairs);
+router.patch('/:id', updateRepairs);
 
-router.delete('/', deleteRepairs);
+router.delete('/:id', deleteRepairs);
 
 module.exports = {
   repairsRouter: router,

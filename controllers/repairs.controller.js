@@ -6,9 +6,17 @@ exports.findRepairs = (req, res) => {
 };
 
 exports.createRepairs = (req, res) => {
+  const { id, date, status, userId } = req.body;
+
   res.json({
     status: 'success',
     message: 'ROUTE  -  POST DESDE CONTROLADOR',
+    repairs: {
+      id,
+      date,
+      status,
+      userId,
+    },
   });
 };
 
