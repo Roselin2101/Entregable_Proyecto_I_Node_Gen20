@@ -1,38 +1,35 @@
-
-const express = require('express')
+const express = require('express');
+const { repairsRouter } = require('../routes/repairs.routes');
 
 //1. Creo una clase
 
-class Server{
+class Server {
+  constructor() {
+    this.app = express();
+    this.port = process.env.PORT || 6200;
 
-    constructor() {
-        this.app = express();
-        this.port = 6200;
+    this.paths = {
+      users: 'api/v1/users',
+      repairs: '/api/v1/repairs',
+    };
 
-        this.routes();
-    }
- // Rutas
-    routes() {
-        this.app.get('/saludar', (req, res) => {
-            res.send('Hello  World')
-        })
-
-        this.app.get('/misDatos', (req, res) => {
-            res.send('Nombre: Roselin, Apellido: Verdu, Edad: 33 años')
-        })
-
-        this.app.get('/seriesFavoritas', (req, res) => {
-            res.send('Serie 1: Dios no esta muerto, Serie2: Gimy y Georgia, Serie3:Aterrizaje en tu corazon')
-        })
-    }
- // Metodo para escuchar solicitudes por el puerto 
-    listen() {
-        this.app.listen(this.port, () => {
-            console.log('Server is running on port', this.port)
-        })
-    }
-
+    this.middlewares();
+    this.routes();
+  }
+  middlewares() {
+    this.app.use(express.json());
+  }
+  // Rutas
+  routes() {
+    this.app.use(this.paths.repairs, repairsRouter);
+  }
+  // Metodo para escuchar solicitudes por el puerto
+  listen() {
+    this.app.listen(this.port, () => {
+      console.log('Server is running on port', this.port);
+    });
+  }
 }
 
-//2. Exporto el servidor 
-module.exports = Server
+//2. Exporto el servidor
+module.exports = Server;
