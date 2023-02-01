@@ -1,19 +1,20 @@
 const express = require('express');
 const { repairsRouter } = require('../routes/repairs.routes');
 const cors = require('cors');
+const { db } = require('../database/db');
 
 //1. Creo una clase
 
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 6200;
+    this.port = process.env.PORT || 4500;
 
     this.paths = {
       users: 'api/v1/users',
       repairs: '/api/v1/repairs',
     };
-
+    this.database();
     this.middlewares();
 
     this.routes();
@@ -25,6 +26,16 @@ class Server {
   // Rutas
   routes() {
     this.app.use(this.paths.repairs, repairsRouter);
+  }
+
+  database() {
+    db.authenticate()
+      .then(() => console.log('Database authenticated'))
+      .catch(error => console.log(error));
+
+    db.sync()
+      .then(() => console.log('Database synced'))
+      .catch(error => console.log(error));
   }
   // Metodo para escuchar solicitudes por el puerto
   listen() {

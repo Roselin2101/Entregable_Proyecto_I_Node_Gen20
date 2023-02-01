@@ -4,24 +4,21 @@ const {
   createRepairs,
   deleteRepairs,
   updateRepairs,
+  findRepair,
 } = require('../controllers/repairs.controller');
+const { validIfExistsRepair } = require('../middleware/repairs.middewe');
 
 const router = Router();
 
-router.get('/:id', findRepairs);
+router.get('/', findRepairs);
+
+router.get('/:id', validIfExistsRepair, findRepair);
 
 router.post('/', createRepairs);
 
-router.put('/', (req, res) => {
-  res.json({
-    status: 'success',
-    message: 'ROUTE  -  PUT',
-  });
-});
+router.patch('/:id', validIfExistsRepair, updateRepairs);
 
-router.patch('/:id', updateRepairs);
-
-router.delete('/:id', deleteRepairs);
+router.delete('/:id', validIfExistsRepair, deleteRepairs);
 
 module.exports = {
   repairsRouter: router,
