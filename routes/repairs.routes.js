@@ -6,7 +6,7 @@ const {
   updateRepairs,
   findRepair,
 } = require('../controllers/repairs.controller');
-const { validIfExistsRepair } = require('../middleware/repairs.middewe');
+const { validIfExistsRepair } = require('../middleware/repairs.middleware');
 
 const router = Router();
 

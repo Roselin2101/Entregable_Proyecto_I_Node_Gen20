@@ -9,10 +9,16 @@ exports.findRepairs = async (req, res) => {
     });
     res.json({
       status: 'success',
-      message: 'ROUTE  - GET DESDE EL CONTROLADOR',
+      message: 'Reparaciones Encontradas',
       repair,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+    });
+  }
 };
 
 exports.findRepair = async (req, res) => {
@@ -20,11 +26,15 @@ exports.findRepair = async (req, res) => {
     const { repairs } = req;
     res.json({
       status: 'success',
-      message: 'ROUTE  - La reparación se ha encontrado',
+      message: 'La reparación se ha encontrado',
       repairs,
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+    });
   }
 };
 
@@ -62,6 +72,10 @@ exports.updateRepairs = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+    });
   }
 };
 
@@ -76,5 +90,9 @@ exports.deleteRepairs = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+    });
   }
 };

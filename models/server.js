@@ -1,4 +1,5 @@
 const express = require('express');
+const { usersRouter } = require('../routes/users.routes');
 const { repairsRouter } = require('../routes/repairs.routes');
 const cors = require('cors');
 const { db } = require('../database/db');
@@ -25,7 +26,7 @@ class Server {
   }
   // Rutas
   routes() {
-    this.app.use(this.paths.repairs, repairsRouter);
+    this.app.use(this.paths.users, usersRouter);
   }
 
   database() {
